@@ -1,12 +1,9 @@
-import pytest
 from selenium.webdriver.support import expected_conditions as EC
 
 from selenium import webdriver
 import unittest
 from selenium.webdriver.support.ui import WebDriverWait
-
 import os
-
 from selenium.webdriver.common.by import By
 
 
@@ -28,12 +25,16 @@ class YandexAutoTest(unittest.TestCase):
                                                                       '//*[@aria-label="Поиск по изображению"]')))
         upload_button.click()
 
-        upload_image = "автокран"
+        upload_image = 'автокран'
         file_input = driver.find_element_by_xpath(xpath='//*[@class="cbir-panel__file-input"]')
         file_input.send_keys(os.getcwd() + "/автокран.jpg")
-        driver.implicitly_wait(20)
-        search_result = driver.find_element_by_xpath(xpath='//span[@class="Button2-Text" and contains(text(//div[text() = "Кажется, на изображении"]/following-sibling::div//span[contains(text(),"{upload_image}")]')
+        driver.implicitly_wait(30)
+        search_result = driver.find_elements_by_xpath(xpath=f'//div[text() = "Кажется, на '
+                                                            f'изображении"]/following-sibling::div//span[contains('
+                                                            f'text(), "{upload_image}")]')
 
-        assert search_result == upload_image
+        assert search_result
+
+
 
 
