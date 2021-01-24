@@ -25,16 +25,13 @@ class YandexAutoTest(unittest.TestCase):
                                                                       '//*[@aria-label="Поиск по изображению"]')))
         upload_button.click()
 
-        upload_image = 'автокран'
+        upload_image = "автокран"
         file_input = driver.find_element_by_xpath(xpath='//*[@class="cbir-panel__file-input"]')
-        file_input.send_keys(os.getcwd() + "/автокран.jpg")
-        driver.implicitly_wait(30)
-        search_result = driver.find_elements_by_xpath(xpath=f'//div[text() = "Кажется, на '
-                                                            f'изображении"]/following-sibling::div//span[contains('
-                                                            f'text(), "{upload_image}")]')
+        file_input.send_keys(os.getcwd() + f"/{upload_image}.jpg")
+        search_result = wait.until(method=EC.visibility_of_all_elements_located((By.XPATH,
+                                                                                 f'//div[text() = "Кажется, на '
+                                                                                 f'изображении"]/following-sibling '
+                                                                                 f'::div//span[contains( text(), '
+                                                                                 f'"{upload_image}")]')))
 
         assert search_result
-
-
-
-
